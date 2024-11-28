@@ -12,13 +12,8 @@ def allowExternal ():
     clientName = "demoDash" + str(random.randint(1000, 9000))
     client = mqtt.Client(clientName, transport="websockets")
 
-    broker_address = "dronseetac.upc.edu"
-    #broker_address = 'broker.hivemq.com'
+    broker_address = 'broker.hivemq.com'
     broker_port = 8000
-
-    client.username_pw_set(
-        'dronsEETAC', 'mimara1456.'
-    )
 
     client.on_message = on_message
     client.on_connect = on_connect

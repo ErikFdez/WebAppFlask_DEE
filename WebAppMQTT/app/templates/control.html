@@ -73,10 +73,7 @@
 <script>
 
         console.log ('voy a conectarme al broker');
-        const client = mqtt.connect ('ws://dronseetac.upc.edu:8000/mqtt', {
-          username: 'dronsEETAC',
-          password: 'mimara1456.'
-        })
+        const client = mqtt.connect ('ws://broker.hivemq.com:8000/mqtt');
 
 
         client.on('connect', function () {

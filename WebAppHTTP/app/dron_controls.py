@@ -1,5 +1,4 @@
 import json
-from dronLink.Dron import Dron
 import random
 import paho.mqtt.client as mqtt
 
@@ -11,19 +10,14 @@ def conectar_broker ():
     clientName = "mobileFlask" + str(random.randint(1000, 9000))
     client = mqtt.Client(clientName, transport="websockets")
 
-    broker_address = "dronseetac.upc.edu"
-    # broker_address = 'broker.hivemq.com'
+    broker_address = 'broker.hivemq.com'
     broker_port = 8000
-
-    client.username_pw_set(
-        'dronsEETAC', 'mimara1456.'
-    )
 
     client.on_message = on_message
     client.on_connect = on_connect
     print('me voy a conectar al broker')
     client.connect(broker_address, broker_port)
-    print('Conectado a dronseetac.upc.edu:8000')
+    print('Conectado a broker.hivemq.com:8000')
 
     # me subscribo a cualquier mensaje  que venga del demoDash
     client.subscribe('demoDash/mobileFlask/#')
