@@ -1,0 +1,199 @@
+<!--Este es el fichero que enviará el servidor web al navegador cuando éste se conecte a la web-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web app</title>
+</head>
+<style>
+        .boton {
+            font-size: 18px;
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .boton-verde { background-color: #4CAF50; }
+        .boton-amarillo { background-color: #FFD700; }
+        .boton-rojo { background-color: #f44336; }
+
+        .direction {
+            display: grid;
+            grid-template-rows: 100px 100px 100px;
+            grid-template-columns: 100px 100px 100px;
+            text-align: center;
+            width:80%;
+            margin-left: 5%;
+        }
+
+        .box {
+            background: #444;
+            border: 1px solid #555;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: yellowgreen;
+            font-size: 18px;
+            margin: 5px
+        }
+
+    </style>
+<body>
+    <div class="control-manual">
+        <h1>Web App</h1>
+        <button id="botonConectar" class="boton" onclick="conectarDron()">Conectar con Dron</button>
+        <input type="number" id="altura" class="input-metros" placeholder="Altura en metros" />
+        <button id="botonDespegar" class="boton" onclick="despegarDron()">Despegar</button>
+        <button id="botonAterrizar" class="boton" onclick="aterrizarDron()">Aterrizar Dron</button>
+    </div>
+    <div class="direction">
+          <div onclick="moverDron('NorthWest')" class="box">NW</div>
+          <div onclick="moverDron('North')" class="box">N</div>
+          <div onclick="moverDron('NorthEast')" class="box">NE</div>
+          <div onclick="moverDron('West')" class="box">W</div>
+          <div onclick="moverDron('Stop')" class="box">Stop</div>
+          <div onclick="moverDron('East')" class="box">E</div>
+          <div onclick="moverDron('SouthWest')" class="box">SW</div>
+          <div onclick="moverDron('South')" class="box">S</div>
+          <div onclick="moverDron('SouthEast')" class="box">SE</div>
+      </div>
+<!--    Aqui mostraré la altura del dron-->
+    <div id="datos-telemetria">
+    </div>
+
+</body>
+<script>
+        function conectarDron() {
+            fetch('/conexion_dron', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.estado === 'success') {
+                    document.getElementById('botonConectar').classList.add('boton-verde');
+<!--                    Inmediatamente despues de conectar pido que me envíen datos de telemetria cada segundo-->
+                    iniciarObtencionDatosTelemetria()
+                }
+            })
+            .catch((error) => {
+                console.error('Error al conectar el dron:', error);
+            });
+        }
+
+        function despegarDron() {
+            const altura = document.getElementById('altura').value;
+            if (altura) {
+                const botonDespegar = document.getElementById('botonDespegar');
+                fetch('/despegar', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+<!--                    añado la altura de despegue al POST-->
+                    body: JSON.stringify({ metros: parseFloat(altura) })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.estado === 'success') {
+<!--                    Empieza el despegue. Pongo el botón en amarillo-->
+                       botonDespegar.classList.add('boton-amarillo');
+                    } else {
+                        console.error("Error en el despegue:", data.message);
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error al despegar el dron:', error);
+                });
+            } else {
+                alert("Por favor, ingrese una altura válida.");
+            }
+        }
+
+        function aterrizarDron() {
+            const botonAterrizar = document.getElementById('botonAterrizar');
+            botonAterrizar.classList.add('boton-amarillo');
+            fetch('/aterrizar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+<!--            observar que aquí el juego de colores para el boton no funciona. Hay que hacerlo-->
+<!--            igual que en el caso del despegue-->
+                if (data.estado === 'success') {
+                    botonAterrizar.classList.remove('boton-amarillo');
+                    botonAterrizar.classList.add('boton-verde');
+                } else {
+                    botonAterrizar.classList.remove('boton-amarillo');
+                    console.error("Error en el aterrizaje:", data.estado);
+                }
+            })
+            .catch((error) => {
+                console.error('Error al aterrizar el dron:', error);
+                botonAterrizar.classList.remove('boton-amarillo');
+            });
+        }
+
+        function obtenerDatos() {
+            fetch('/telemetria', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+<!--            me han respondido con los datos de telemetria-->
+                const telemetriaDiv = document.getElementById('datos-telemetria');
+                if (data.estado === "success") {
+                    if (data.data.estado == "flying") {
+<!--                    Se ha completado el despegue. Pongo el boton en verde-->
+                        botonDespegar.classList.remove('boton-amarillo');
+                        botonDespegar.classList.add('boton-verde');
+                    }
+<!--                    Recojo la altura del dron para mostrarla al usuario-->
+                    telemetriaDiv.innerHTML = `
+                        <p><strong>Altitud:</strong> ${data.data.alt}</p>
+                    `;
+                }
+            })
+            .catch((error) => {
+                console.error('Error al obtener datos de telemetría:', error);
+            });
+        }
+
+        async function iniciarObtencionDatosTelemetria() {
+<!--        Repetire la petición de datos de telemetría cada segundo-->
+            obtenerDatos();
+            intervalo = setInterval(obtenerDatos, 1000);
+        }
+        function moverDron(direction) {
+            fetch('/mover', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ direction: direction })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Movimiento del dron:', data.estado);
+            })
+            .catch((error) => {
+                console.error('Error en el movimiento del dron:', error);
+            });
+        }
+    </script>
+</html>

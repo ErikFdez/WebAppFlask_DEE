@@ -1,0 +1,132 @@
+<!--Este es el fichero que enviará el servidor web al navegador cuando éste se conecte a la web-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <script src="https://cdn.jsdelivr.net/npm/mqtt/dist/mqtt.min.js"></script>
+    <title>Web app</title>
+</head>
+<style>
+        .boton {
+            font-size: 18px;
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .boton-verde { background-color: #4CAF50; }
+        .boton-amarillo { background-color: #FFD700; }
+        .boton-rojo { background-color: #f44336; }
+
+        .direction {
+            display: grid;
+            grid-template-rows: 100px 100px 100px;
+            grid-template-columns: 100px 100px 100px;
+            text-align: center;
+            width:80%;
+            margin-left: 5%;
+        }
+
+        .box {
+            background: #444;
+            border: 1px solid #555;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: yellowgreen;
+            font-size: 18px;
+            margin: 5px
+        }
+
+    </style>
+<body>
+    <div class="control-manual">
+        <h1>Web App</h1>
+        <button id="botonConectar" class="boton" onclick="conectarDron()">Conectar con Dron</button>
+        <input type="number" id="altura" class="input-metros" placeholder="Altura en metros" />
+        <button id="botonDespegar" class="boton" onclick="despegarDron()">Despegar</button>
+        <button id="botonAterrizar" class="boton" onclick="aterrizarDron()">Aterrizar Dron</button>
+    </div>
+    <div class="direction">
+          <div onclick="moverDron('NorthWest')" class="box">NW</div>
+          <div onclick="moverDron('North')" class="box">N</div>
+          <div onclick="moverDron('NorthEast')" class="box">NE</div>
+          <div onclick="moverDron('West')" class="box">W</div>
+          <div onclick="moverDron('Stop')" class="box">Stop</div>
+          <div onclick="moverDron('East')" class="box">E</div>
+          <div onclick="moverDron('SouthWest')" class="box">SW</div>
+          <div onclick="moverDron('South')" class="box">S</div>
+          <div onclick="moverDron('SouthEast')" class="box">SE</div>
+      </div>
+<!--    Aqui mostraré la altura del dron-->
+    <div id="datos-telemetria">
+    </div>
+
+</body>
+<script>
+
+        console.log ('voy a conectarme al broker');
+        const client = mqtt.connect ('ws://dronseetac.upc.edu:8000/mqtt', {
+          username: 'dronsEETAC',
+          password: 'mimara1456.'
+        })
+
+
+        client.on('connect', function () {
+            console.log('Connected to MQTT broker');
+            client.subscribe('demoDash/mobileFlask/#');
+
+        });
+
+        client.on('message', function (topic, message) {
+            if (topic == "demoDash/mobileFlask/telemetryInfo") {
+                const data = JSON.parse(message.toString());
+                alt = data.alt;
+                estado =  data.state;
+                const telemetriaDiv = document.getElementById('datos-telemetria');
+
+                if (estado == "flying") {
+    <!--              Se ha completado el despegue. Pongo el boton en verde-->
+                      const botonDespegar = document.getElementById('botonDespegar');
+                      botonDespegar.classList.remove('boton-amarillo');
+                      botonDespegar.classList.add('boton-verde');
+                }
+    <!--        Muestro la altura al usuario-->
+                telemetriaDiv.innerHTML = `
+                      <p><strong>Altitud:</strong> ${alt}</p>
+                `;
+            }
+        });
+
+        function conectarDron() {
+            client.publish('mobileFlask/demoDash/connect');
+            const botonConectar = document.getElementById('botonConectar');
+            botonConectar.classList.add('boton-verde');
+        }
+
+        function despegarDron() {
+            const altura = document.getElementById('altura').value;
+            if (altura) {
+                client.publish('mobileFlask/demoDash/arm_takeOff', altura);
+                botonDespegar.classList.add('boton-amarillo');
+            } else {
+                alert("Por favor, ingrese una altura válida.");
+            }
+        }
+
+        function aterrizarDron() {
+             client.publish('mobileFlask/demoDash/Land');
+        }
+        function moverDron(direction) {
+            client.publish('mobileFlask/demoDash/go', direction)
+        }
+    </script>
+
+</html>
