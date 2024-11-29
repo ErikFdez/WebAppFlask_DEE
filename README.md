@@ -3,8 +3,8 @@
 En este repositorio se describe cómo controlar un dron desde cualquier dispositivo conectado a internet, sin necesidad de instalar ninguna app en el dispositivo. Para ello se utiliza el framework Flask para implementer un servidor web en Python.   
 El prepositorio proporciona códigos, vídeos y descripciones. También se proponen algunos retos que pueden ayudar a asentar los conceptos que se presentan.   
 ## 2. Demo    
-El vídeo muestra una demo de la aplicación que ejemplifica el tema. El simulador del dron (SITL) se controla desde una aplicación de escritorio desarrollada e Python y Tkinter y también desde un teléfono movil, mediante una web app desarrollada en Flask.    
-[![](https://markdown-videos-api.jorgenkh.no/url?url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DryezfzIUBrE)](https://www.youtube.com/watch?v=ryezfzIUBrE)     
+El vídeo muestra una demo de la aplicación que ejemplifica el tema. El simulador del dron (SITL) se controla desde una aplicación de escritorio desarrollada e Python y Tkinter y también desde un teléfono movil, mediante una web app desarrollada en Flask.  
+[![](https://markdown-videos-api.jorgenkh.no/url?url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D38vVL23C8Fc)](https://www.youtube.com/watch?v=38vVL23C8Fc)     
 ## 3. Arquitectura software
 Este vídeo explica cómo está organizado el código. La comunicación entre el dispositivo móvil y el servidor web se realiza usando el protocolo HTTP, mediante operaciones GET y POST. La comunicación entre el servidor web y la aplicación de escritorio (desde la que se controla el dron) se realiza usando un broker que implementa el protocolo MQTT, en el que la comunicación se articula mediante publicaciones y subscripciones.    
 [![](https://markdown-videos-api.jorgenkh.no/url?url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DryezfzIUBrE)](https://www.youtube.com/watch?v=ryezfzIUBrE)    
