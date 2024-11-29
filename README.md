@@ -17,7 +17,21 @@ El vídeo muestra una arquitectura software alternativa en la que el dispositivo
 Todo el código mostrado se puede descargar desde este repositorio. El código está organizado en tres carpetar: EstacionTierra, WebAppHTTP y WebAppMQTT.    
 Para poner en marcha EstaciónTierra es necesario instalar las librerías *pymavlink* y *paho-mqtt*.    
 Para poner en marcha WebAppHTTP es necesario instalar las librerías *Flask* y *paho-mqtt*. 
-Para poner en marcha WebAppMQTT
+Para poner en marcha WebAppMQTT solo es necesario instalar la librería *Flask*.    
+ATENCIÓN: En los tres casos debe instalarse la versión 1.6.1 de la librería *paho-mqtt*.    
+## Retos
+Para consolidar los conocimientos que proporciona este repositorio se propone los tres retos siguientes:     
+### Reto 1 ###
+Hacer que en el dispositivo móvil se muestren más datos de telemetría, además de la altitud del dron (por ejemplo el heading, la velocidad o la posición). Además mejorar la estética de la página web que se muestra al usuario, manipulando los elementos html y los estilos.     
+### Reto 2 ###
+Introducir el código necesario para que el botón de aterrizar se muestre igual que el de despegar, es decir, se ponga en amarillo en el momento en que se inicie el aterrizaje y se ponga en verde cuando el dron tome tierra. Introducir también el codigo necesario para cambiar el color del botón clicado para marcar la dirección de vuelo, de manera que el botón permanezca en ese color hasta que se pulse otro botón para cambiar la dirección de vuelo.     
+### Reto 3 ###
+Implementar una arquitectura software alternativa en la que no sea necesario poner en marcha ninguna estación de tierra para controlar el dron desde el móvil.     
+## Materiales complementarios ##
+En este repositorio puede encontrarse toda la información sobre la libreria DronLink, que se usa para controlar el dron (o el simulador SITL).   
+En este repositorio puede encontrarse información sobre cómo trabajar con Mission Planner y el simulador SITL, y también sobre como construir una sencilla estación de tierra en Python como la que se usa en este repositorio.    
+En este repositorio se puede encontrar abundante material sobre cómo desarrollar estaciones de tierra en Python mucho más sofisticadas que la que se ha usado aqui (incluyendo la visualización de mapas, trayectorias del dron o control del dron mediante poses el cuerpo).
+
 
 
 
