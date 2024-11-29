@@ -82,6 +82,7 @@
                 if (data.estado === 'success') {
                     document.getElementById('botonConectar').classList.add('boton-verde');
 <!--                    Inmediatamente despues de conectar pido que me envíen datos de telemetria cada segundo-->
+                    console.log ('inicio la peticion de datos de telemetria')
                     iniciarObtencionDatosTelemetria()
                 }
             })
