@@ -11,7 +11,7 @@ Este vídeo explica cómo está organizado el código. La comunicación entre el
 Este vídeo es un pequeño paseo por el código de las aplicaciones.   
 [![](https://markdown-videos-api.jorgenkh.no/url?url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D9JBQAkh-0WQ)](https://www.youtube.com/watch?v=9JBQAkh-0WQ)    
 ## 4. Arquitectura alternativa
-El vídeo muestra una arquitectura software alternativa en la que el dispositivo móvil solo se comunica con el servidor web para obtener la (única) página web. El script de esa página web permite al propio dispositivo móvil comunicarse comunicarse directamente con la aplicación de escritorio, a través del broker MQTT. 
+El vídeo muestra una arquitectura software alternativa en la que el dispositivo móvil solo se comunica con el servidor web para obtener la (única) página web. El script de esa página web permite al propio dispositivo móvil comunicarse comunicarse directamente con la aplicación de escritorio, a través del broker MQTT.    
 [![](https://markdown-videos-api.jorgenkh.no/url?url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3Doi3SAmCxBuo)](https://www.youtube.com/watch?v=oi3SAmCxBuo)    
 ## 5. Instalación
 Todo el código mostrado se puede descargar desde este repositorio. El código está organizado en tres carpetar: EstacionTierra, WebAppHTTP y WebAppMQTT.    
