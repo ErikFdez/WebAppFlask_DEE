@@ -29,10 +29,10 @@ Introducir el código necesario para que el botón de aterrizar se muestre igual
 Implementar una arquitectura software alternativa en la que no sea necesario poner en marcha ninguna estación de tierra para controlar el dron desde el móvil.     
 ## 7. Materiales complementarios ##
 En este repositorio [![DroneEngineeringEcosystem Badge](https://img.shields.io/badge/DEE-DronLink-blue.svg)](https://github.com/dronsEETAC/DronLink.git) puede encontrarse toda la información sobre la libreria DronLink, que se usa para controlar el dron (o el simulador SITL).   
-En este repositorio puede encontrarse información sobre cómo trabajar con Mission Planner y el simulador SITL, y también sobre como construir una sencilla estación de tierra en Python como la que se usa en este repositorio.    
-En este repositorio se puede encontrar abundante material sobre cómo desarrollar estaciones de tierra en Python mucho más sofisticadas que la que se ha usado aqui (incluyendo la visualización de mapas, trayectorias del dron o control del dron mediante poses el cuerpo).
-
-
+En este repositorio [![DroneEngineeringEcosystem Badge](https://img.shields.io/badge/DEE-telecoRenta_taller_de_drones-blue.svg)](https://github.com/dronsEETAC/
+telecoRenta_taller_de_drones.git) puede encontrarse información sobre cómo trabajar con Mission Planner y el simulador SITL, y también sobre como construir una sencilla estación de tierra en Python como la que se usa en este repositorio.    
+En este repositorio [![DroneEngineeringEcosystem Badge](https://img.shields.io/badge/DEE-telecoRenta_taller_de_drones-blue.svg)](https://github.com/dronsEETAC/
+telecoRenta_taller_de_drones.git) se puede encontrar abundante material sobre cómo desarrollar estaciones de tierra en Python mucho más sofisticadas que la que se ha usado aqui (incluyendo la visualización de mapas, trayectorias del dron o control del dron mediante poses el cuerpo).
 
 
 
