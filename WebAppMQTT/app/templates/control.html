@@ -71,20 +71,13 @@
 
 </body>
 <script>
-        const client;
+        console.log ('voy a conectarme al broker');
+        const client = mqtt.connect ('ws://broker.hivemq.com:8000/mqtt')
 
-        function conectarDron() {
-            console.log ('voy a conectarme al broker');
-            client = mqtt.connect ('ws://broker.hivemq.com:8000/mqtt');
-
-        }
 
         client.on('connect', function () {
             console.log('Connected to MQTT broker');
             client.subscribe('demoDash/mobileFlask/#');
-            client.publish('mobileFlask/demoDash/connect');
-            const botonConectar = document.getElementById('botonConectar');
-            botonConectar.classList.add('boton-verde');
 
         });
 
@@ -107,6 +100,12 @@
                 `;
             }
         });
+
+        function conectarDron() {
+            client.publish('mobileFlask/demoDash/connect');
+            const botonConectar = document.getElementById('botonConectar');
+            botonConectar.classList.add('boton-verde');
+        }
 
 
         function despegarDron() {
