@@ -5,7 +5,7 @@ En este repositorio se describe cómo controlar un dron desde cualquier disposit
 El repositorio proporciona códigos, vídeos y descripciones. 
 
 ## 2. Instalación
-Paso 1: Para preparar la instalación de la WebApp primero debemos instalar el interprete de Python 3.9 (el instalador de esta interprete se puede encontrar la página web https://www.python.org/downloads/). Aun así en la carpeta del repositorio dejo el ejecutable del instalador. 
+Paso 1: Para preparar la instalación de la WebApp primero debemos instalar el interprete de Python 3.9 (el instalador de esta interprete se puede encontrar la página web https://www.python.org/downloads/).
 Paso 2: Abrir los archivos importantes (run.py, EstacionDeTierra.py, control.html). En la primera línea del código de run.py y EstacionDeTierra.py explica las librerías que se deben instalar. Si no se instalan estas librerias el código dará errores.
 Paso 3: Descargar los certificados https, para ello abrir un Git Bash en la carpeta WebAppMQTT y escribir el siguiente comando: 
 
