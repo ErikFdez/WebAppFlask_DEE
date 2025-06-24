@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/WebAppHTTP.iml" filepath="$PROJECT_DIR$/.idea/WebAppHTTP.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/WebAppFlask.iml" filepath="$PROJECT_DIR$/.idea/WebAppFlask.iml" />
     </modules>
   </component>
 </project>
